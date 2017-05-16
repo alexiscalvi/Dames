@@ -5,10 +5,7 @@
  */
 package ndames;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  *
@@ -66,6 +63,48 @@ public abstract class Algo {
         }
         return neigboursList;
 
+    }
+
+    public List<int[]> getVoisinsNotTabou(int[] solution, List<Map> tabou){
+
+        List<int[]> neigboursList = new ArrayList<int[]>();
+        int[] index_tmp = new int[2];
+        for(int i=0; i< solution.length; i++){
+            for(int j=i+1; j< solution.length; j++){
+                int[] tmp_tab = solution.clone();
+                int tmp_data = tmp_tab[i];
+                tmp_tab[i] = tmp_tab[j];
+                tmp_tab[j] = tmp_data;
+                index_tmp[0] = i;
+                index_tmp[1] = j;
+                if (isNotTabou(i, j, tabou)){
+                    neigboursList.add(tmp_tab);
+                }
+            }
+        }
+        for(int[] voisin : neigboursList){
+            String string ="";
+            for(int i=0; i< solution.length; i++){
+                string += voisin[i]+" ";
+            }
+        }
+        return neigboursList;
+
+    }
+
+    public boolean isNotTabou(int i, int j, List<Map> tabou) {
+        for (Map u : tabou) {
+            Set cles = u.keySet();
+            Iterator it = cles.iterator();
+            while (it.hasNext()){
+                int cle = (int) it.next(); // tu peux typer plus finement ici
+                int valeur = (int) u.get(cle); // tu peux typer plus finement ici
+                if ( (i == cle && j == valeur) || (j == cle && i == valeur)) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     

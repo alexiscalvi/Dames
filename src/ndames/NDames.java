@@ -20,7 +20,6 @@ public class NDames {
     public static void main(String[] args) {
         // TODO code application logic here
 
-
         /*
         TESTS
          */
@@ -91,6 +90,15 @@ public class NDames {
 */
 
         Recuit recuit = new Recuit(500, 50,50,50, 0.95);
+        int[] result = recuit.start();
+
+
+        System.out.println("Solution valable:");
+        for(int i : result){
+            System.out.println(i);
+        }
+
+        Tabou tabou = new Tabou(500, 50);
         int[] result = recuit.start();
 
 
